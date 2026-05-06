@@ -3,12 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jony.dev — Portfolio</title>
-<meta name="description" content="Jony — Toshkentdan yosh Full-Stack dasturchi. Portfolio, loyihalar va galereya.">
-<meta property="og:title" content="Jony.dev">
-<meta property="og:description" content="Toshkentdan yosh dasturchi.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+<title>Jony.dev</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600;700&family=Fraunces:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -328,32 +323,38 @@ body{background:var(--bg);color:var(--txt);font-family:'Syne',sans-serif;min-hei
 .toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:12px;z-index:99999;animation:slideUp .3s ease;max-width:300px}
 .toast.ok{border-color:var(--acc);color:var(--acc)}.toast.err{border-color:var(--red);color:var(--red)}
 
-/* NOTIFICATION POPUP */
-#notif-popup{display:none;position:fixed;bottom:24px;left:24px;background:var(--card);border:1px solid var(--acc);border-radius:14px;padding:14px 18px 14px 14px;z-index:99998;max-width:280px;box-shadow:0 8px 32px rgba(0,232,122,.15);cursor:pointer;gap:10px;align-items:flex-start}
-.notif-icon{font-size:22px;flex-shrink:0;margin-top:1px}
-.notif-body{flex:1;min-width:0}
-.notif-title{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:3px}
-.notif-msg{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.notif-x{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;margin-top:-2px}
-.notif-x:hover{color:var(--red)}
-@keyframes notifIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+/* AUTH NAV */
+.auth-nav-btn{padding:8px 16px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+.auth-nav-btn:hover{border-color:var(--acc);color:var(--acc)}
+.auth-user-pill{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2)}
+.auth-user-pill:hover{border-color:var(--acc);color:var(--acc)}
+.auth-user-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--acc),#0066ff);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 
-/* HAMBURGER */
-.burger-btn{display:none;flex-direction:column;justify-content:center;gap:5px;background:transparent;border:1px solid var(--border);border-radius:8px;width:34px;height:34px;cursor:pointer;padding:8px;transition:all .2s;flex-shrink:0}
-.burger-btn:hover{border-color:var(--acc)}
-.burger-btn span{display:block;width:100%;height:2px;background:var(--txt2);border-radius:2px;transition:all .3s}
-.burger-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.burger-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{display:none;position:fixed;top:61px;left:0;right:0;background:var(--card);border-bottom:1px solid var(--border);z-index:199;padding:10px;flex-direction:column;gap:4px}
-.mobile-menu.open{display:flex;animation:fadeIn .2s ease}
-.mob-tab{padding:11px 16px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--txt2);text-align:left;width:100%;transition:all .18s}
-.mob-tab:hover,.mob-tab.active{color:var(--acc);border-color:var(--acc);background:var(--accD)}
+/* AUTH MODAL */
+#auth-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8100;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+#auth-modal.open{display:flex;animation:fadeIn .2s ease}
+.auth-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:40px 36px;width:100%;max-width:360px;position:relative;animation:slideUp .3s ease}
+.auth-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent);border-radius:18px 18px 0 0}
+.auth-close{position:absolute;top:14px;right:16px;background:transparent;border:none;color:var(--txt3);font-size:20px;cursor:pointer}
+.auth-close:hover{color:var(--red)}
+.auth-tabs{display:flex;gap:4px;margin-bottom:28px;background:var(--bg2);border-radius:10px;padding:4px}
+.auth-tab{flex:1;padding:8px;border-radius:8px;border:none;background:transparent;color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+.auth-tab.active{background:var(--card);color:var(--acc);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.auth-inp{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .2s;margin-bottom:10px}
+.auth-inp:focus{border-color:var(--acc)}
+.auth-btn{width:100%;padding:12px;background:var(--acc);border:none;border-radius:var(--r2);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;margin-top:6px;transition:opacity .2s}
+.auth-btn:hover{opacity:.88}
+.auth-err{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);margin-top:8px;text-align:center;display:none}
+.auth-ok{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);margin-top:8px;text-align:center;display:none}
 
-/* ADMIN CHAT BADGE */
-.t-chat-badge{background:var(--red);color:#fff;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;min-width:14px;height:14px;border-radius:100px;display:none;align-items:center;justify-content:center;padding:0 3px;margin-left:4px;vertical-align:middle}
+/* USER DROPDOWN */
+#user-dropdown{display:none;position:fixed;top:62px;right:130px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:8px;z-index:400;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+#user-dropdown.open{display:block;animation:fadeIn .15s ease}
+.ud-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2);padding:8px 12px;border-bottom:1px solid var(--border);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ud-btn{width:100%;padding:9px 12px;border-radius:8px;border:none;background:transparent;color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;text-align:left;transition:all .18s}
+.ud-btn:hover{background:var(--bg2);color:var(--txt)}
+.ud-btn.red:hover{color:var(--red)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
@@ -366,31 +367,11 @@ body{background:var(--bg);color:var(--txt);font-family:'Syne',sans-serif;min-hei
   .pub-nav-tabs{display:none}.topbar{padding:0 14px}.t-tabs{display:none}
   .admin-main{padding:20px 14px 60px}.field-row{grid-template-columns:1fr}
   .chat-sidebar{display:none}.glb-img{max-width:92vw}
-  .burger-btn{display:flex}
 }
 </style>
 </head>
 <body>
 <canvas id="star-canvas"></canvas>
-
-<!-- NOTIFICATION POPUP -->
-<div id="notif-popup">
-  <div class="notif-icon" id="notif-icon">💬</div>
-  <div class="notif-body">
-    <div class="notif-title" id="notif-title">Yangi xabar!</div>
-    <div class="notif-msg" id="notif-msg">...</div>
-  </div>
-  <button class="notif-x" onclick="closeNotif()">✕</button>
-</div>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu">
-  <button class="mob-tab active" onclick="pubTabMob('home',this)">🏠 Asosiy</button>
-  <button class="mob-tab" onclick="pubTabMob('library',this)">📚 Kutubxona</button>
-  <button class="mob-tab" onclick="pubTabMob('gallery',this)">📸 Galereya</button>
-  <button class="mob-tab" onclick="pubTabMob('music',this)">🎵 Musiqa</button>
-  <button class="mob-tab" onclick="pubTabMob('chat',this)">💬 Chat</button>
-</div>
 
 <div id="theme-picker">
   <div class="tp-title">Rang tanlang</div>
@@ -418,10 +399,11 @@ body{background:var(--bg);color:var(--txt);font-family:'Syne',sans-serif;min-hei
     </div>
     <div class="pub-nav-right">
       <button class="pub-icon-btn" onclick="toggleThemePicker()">🎨</button>
+      <!-- AUTH BUTTON -->
+      <div id="auth-nav-area">
+        <button class="auth-nav-btn" id="auth-open-btn" onclick="openAuthModal()">Kirish / Ro'yxat</button>
+      </div>
       <button class="admin-login-btn" onclick="openLogin()">Admin →</button>
-      <button class="burger-btn" id="burger-btn" onclick="toggleBurger()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </nav>
   <div class="pub-hero">
@@ -534,6 +516,39 @@ body{background:var(--bg);color:var(--txt);font-family:'Syne',sans-serif;min-hei
   </div>
 </div>
 
+<!-- AUTH MODAL -->
+<div id="auth-modal">
+  <div class="auth-box">
+    <button class="auth-close" onclick="closeAuthModal()">✕</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-signin" onclick="switchAuthTab('signin')">Kirish</button>
+      <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Ro'yxat</button>
+    </div>
+    <!-- SIGN IN -->
+    <div id="auth-signin-form">
+      <input class="auth-inp" id="si-email" type="email" placeholder="Email">
+      <input class="auth-inp" id="si-pass" type="password" placeholder="Parol">
+      <button class="auth-btn" onclick="doSignIn()">Kirish →</button>
+    </div>
+    <!-- SIGN UP -->
+    <div id="auth-signup-form" style="display:none">
+      <input class="auth-inp" id="su-username" type="text" placeholder="Username (masalan: jony_dev)" maxlength="20">
+      <input class="auth-inp" id="su-email" type="email" placeholder="Email">
+      <input class="auth-inp" id="su-pass" type="password" placeholder="Parol (min 6 belgi)">
+      <button class="auth-btn" onclick="doSignUp()">Ro'yxatdan o'tish →</button>
+    </div>
+    <div class="auth-err" id="auth-err"></div>
+    <div class="auth-ok" id="auth-ok"></div>
+  </div>
+</div>
+
+<!-- USER DROPDOWN -->
+<div id="user-dropdown">
+  <div class="ud-name" id="ud-username">—</div>
+  <button class="ud-btn" onclick="closeUserDropdown()">👤 Profil (tez kunda)</button>
+  <button class="ud-btn red" onclick="doSignOut()">Chiqish</button>
+</div>
+
 <!-- LOGIN -->
 <div id="login-modal">
   <div class="login-box">
@@ -560,7 +575,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Syne',sans-serif;min-hei
       <button class="t-tab" onclick="adminTab('library',this)">📚 Kutubxona</button>
       <button class="t-tab" onclick="adminTab('gallery',this)">📸 Galereya</button>
       <button class="t-tab" onclick="adminTab('music',this)">🎵 Musiqa</button>
-      <button class="t-tab" onclick="adminTab('chat',this)">💬 Chat<span class="t-chat-badge" id="adm-chat-badge"></span></button>
+      <button class="t-tab" onclick="adminTab('chat',this)">💬 Chat</button>
     </div>
     <div class="t-right">
       <div class="t-online"><div class="t-dot"></div>ADMIN</div>
@@ -840,16 +855,9 @@ async function loadWeather(){
   }catch(e){}
 }
 
-/* VIEWS — sessionStorage bilan, har yangilaganda oshmasin */
+/* VIEWS */
 async function trackView(){
   try{
-    if(sessionStorage.getItem('jony_viewed')){
-      // Faqat sonni ko'rsat, oshirma
-      const {data}=await sb.from('profile').select('views').eq('id',1).single();
-      if(data)updateViewsUI(data.views||0);
-      return;
-    }
-    sessionStorage.setItem('jony_viewed','1');
     const {data}=await sb.from('profile').select('views').eq('id',1).single();
     const v=(data?.views||0)+1;
     await sb.from('profile').update({views:v}).eq('id',1);
@@ -873,34 +881,6 @@ function pubTab(name,btn){
   if(name==='chat')initVisitorChat();
   if(name==='library')renderPubLibrary();
 }
-
-/* HAMBURGER */
-function toggleBurger(){
-  document.getElementById('burger-btn').classList.toggle('open');
-  document.getElementById('mobile-menu').classList.toggle('open');
-}
-function pubTabMob(name,btn){
-  document.querySelectorAll('.mob-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.pub-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('pub-'+name).classList.add('active');
-  const tabs=document.querySelectorAll('.pub-nav-tab');
-  const names=['home','library','gallery','music','chat'];
-  tabs.forEach(b=>b.classList.remove('active'));
-  const i=names.indexOf(name);if(i>=0&&tabs[i])tabs[i].classList.add('active');
-  if(name==='gallery')loadGallery();
-  if(name==='music')renderPubPlaylist();
-  if(name==='chat')initVisitorChat();
-  if(name==='library')renderPubLibrary();
-  document.getElementById('burger-btn').classList.remove('open');
-  document.getElementById('mobile-menu').classList.remove('open');
-}
-// Tashqariga bosishda menuni yopish
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.mobile-menu')&&!e.target.closest('#burger-btn'))
-    document.getElementById('mobile-menu')?.classList.remove('open'),
-    document.getElementById('burger-btn')?.classList.remove('open');
-});
 
 /* LOGIN */
 function openLogin(){document.getElementById('login-modal').classList.add('open');setTimeout(()=>document.getElementById('pwd-inp').focus(),100);}
@@ -927,7 +907,7 @@ function adminTab(name,btn){
   document.querySelectorAll('.t-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
   if(btn)btn.classList.add('active');
-  if(name==='chat'){loadConversations();unreadMap={};updateAdminChatBadge();}
+  if(name==='chat')loadConversations();
 }
 
 /* STATS */
@@ -1354,87 +1334,24 @@ function renderVisitorMsgs(msgs){
   }).join('');
   el.scrollTop=el.scrollHeight;
 }
-/* --- VISITOR XABAR YUBORISH (optimistic update) --- */
 async function sendVisitorMsg(){
   const inp=document.getElementById('pub-msg-inp');
   const text=inp.value.trim();if(!text||!visitorConvId)return;
-
-  // Darhol ko'rsatamiz (optimistic)
-  const el=document.getElementById('pub-msgs-area');
-  const tempId='tmp_'+Date.now();
-  el.insertAdjacentHTML('beforeend',`<div class="msg-wrap own" id="${tempId}">
-    <div class="cm-av">👤</div>
-    <div>
-      <div class="msg-meta">${esc(visitorName)}</div>
-      <div class="msg-bubble">${esc(text)}</div>
-      <div class="msg-time" style="color:var(--acc);opacity:.6">Yuborilmoqda...</div>
-    </div>
-  </div>`);
-  el.scrollTop=el.scrollHeight;
   inp.value='';
-
   const {error}=await sb.from('messages').insert({conversation_id:visitorConvId,text,sender:'visitor'});
-  if(error){
-    toast('Xato: '+error.message,'err');
-    inp.value=text;
-    document.getElementById(tempId)?.remove();
-    return;
-  }
+  if(error){toast('Xato: '+error.message,'err');inp.value=text;return;}
   await sb.from('conversations').update({last_message:text,updated_at:new Date().toISOString()}).eq('id',visitorConvId);
-  // Realtime subscription xabarni yangilaydi, lekin temp ni olib tashlaymiz
-  document.getElementById(tempId)?.remove();
+  await loadVisitorMsgs();
 }
-
 function subscribeVisitorMsgs(){
-  if(visitorSub){try{visitorSub.unsubscribe();}catch(e){}}
+  if(visitorSub)visitorSub.unsubscribe();
   visitorSub=sb.channel('vis-'+visitorConvId)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',
-      filter:`conversation_id=eq.${visitorConvId}`},
-      async(payload)=>{
-        const msg=payload.new;
-        // Admin xabari kelsa bildirishnoma
-        if(msg.sender==='admin'){
-          showNotif('Jony javob berdi!',msg.text,'👨‍💻');
-          playNotifSound();
-        }
-        await loadVisitorMsgs();
-      })
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${visitorConvId}`},
+      ()=>loadVisitorMsgs())
     .subscribe();
 }
 
-/* --- NOTIFICATION (ovozli popup) --- */
-let notifTimer=null;
-function showNotif(title,text,icon='💬'){
-  const p=document.getElementById('notif-popup');
-  if(!p)return;
-  document.getElementById('notif-title').textContent=title;
-  document.getElementById('notif-msg').textContent=text;
-  document.getElementById('notif-icon').textContent=icon;
-  p.style.display='flex';
-  p.style.animation='none';void p.offsetWidth;
-  p.style.animation='notifIn .3s ease';
-  if(notifTimer)clearTimeout(notifTimer);
-  notifTimer=setTimeout(closeNotif,6000);
-}
-function closeNotif(){
-  const p=document.getElementById('notif-popup');
-  if(p)p.style.display='none';
-}
-function playNotifSound(){
-  try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.frequency.setValueAtTime(900,ctx.currentTime);
-    o.frequency.setValueAtTime(650,ctx.currentTime+0.08);
-    g.gain.setValueAtTime(0.12,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.25);
-    o.start();o.stop(ctx.currentTime+0.25);
-  }catch(e){}
-}
-
-/* --- ADMIN CHAT --- */
-let unreadMap={};
+/* CHAT - ADMIN */
 async function loadConversations(){
   const {data}=await sb.from('conversations').select('*').order('updated_at',{ascending:false});
   convList=data||[];renderConvList();updateStats();
@@ -1442,51 +1359,31 @@ async function loadConversations(){
 function renderConvList(){
   const el=document.getElementById('adm-conv-list');
   if(!convList.length){el.innerHTML='<div style="padding:20px;font-family:\'JetBrains Mono\',monospace;font-size:11px;color:var(--txt3);text-align:center">Hali suhbat yo\'q</div>';return;}
-  el.innerHTML=convList.map(c=>{
-    const u=unreadMap[c.id]||0;
-    return`<div class="cs-conv${admOpenConvId===c.id?' active':''}" onclick="openAdmConv(${c.id},'${esc(c.visitor_name)}',this)">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div class="cs-conv-name">${esc(c.visitor_name)}</div>
-        ${u>0?`<span style="background:var(--red);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px">${u}</span>`:''}
-      </div>
-      <div class="cs-conv-last">${esc(c.last_message||'...')}</div>
-    </div>`;
-  }).join('');
+  el.innerHTML=convList.map(c=>`<div class="cs-conv" data-id="${c.id}" onclick="openAdmConv(${c.id},'${esc(c.visitor_name)}',this)">
+    <div class="cs-conv-name">${esc(c.visitor_name)}</div>
+    <div class="cs-conv-last">${esc(c.last_message||'...')}</div>
+  </div>`).join('');
 }
 async function openAdmConv(convId,name,el){
   admOpenConvId=convId;
-  delete unreadMap[convId];
-  updateAdminChatBadge();
   document.querySelectorAll('.cs-conv').forEach(c=>c.classList.remove('active'));
   el.classList.add('active');
   const main=document.getElementById('adm-chat-main');
   main.innerHTML=`
     <div class="chat-main-hdr">
       <div class="cm-av">👤</div>
-      <div><div style="font-size:13px;font-weight:700">${esc(name)}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc)">● Online</div></div>
+      <div><div style="font-size:13px;font-weight:700">${esc(name)}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)">Mehmon</div></div>
     </div>
     <div class="msgs-area" id="adm-msgs-area"></div>
-    <div id="adm-typing-ind" style="display:none;padding:6px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)">Mehmon yozmoqda...</div>
     <div class="chat-inp-row">
-      <textarea class="chat-inp" id="adm-msg-inp" placeholder="Javob yozing..."
-        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdmMsg()}"
-        oninput="broadcastAdmTyping()"
-        maxlength="500"></textarea>
+      <textarea class="chat-inp" id="adm-msg-inp" placeholder="Javob yozing..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdmMsg()}" maxlength="500"></textarea>
       <button class="chat-send" onclick="sendAdmMsg()">→</button>
     </div>`;
   await loadAdmConvMsgs(convId);
-  if(admSub){try{admSub.unsubscribe();}catch(e){}}
-  admSub=sb.channel('adm-live-'+convId)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',
-      filter:`conversation_id=eq.${convId}`},
+  if(admSub)admSub.unsubscribe();
+  admSub=sb.channel('adm-'+convId)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${convId}`},
       ()=>loadAdmConvMsgs(convId))
-    .on('broadcast',{event:'typing'},(p)=>{
-      if(p.payload?.sender==='visitor'){
-        const ti=document.getElementById('adm-typing-ind');
-        if(ti){ti.style.display='block';clearTimeout(ti._t);ti._t=setTimeout(()=>{ti.style.display='none';},2500);}
-      }
-    })
     .subscribe();
 }
 async function loadAdmConvMsgs(convId){
@@ -1510,82 +1407,129 @@ async function loadAdmConvMsgs(convId){
 async function sendAdmMsg(){
   const inp=document.getElementById('adm-msg-inp');
   const text=inp.value.trim();if(!text||!admOpenConvId)return;
-  // Optimistic
-  const el=document.getElementById('adm-msgs-area');
-  const tempId='atmp_'+Date.now();
-  if(el){
-    el.insertAdjacentHTML('beforeend',`<div class="msg-wrap own" id="${tempId}">
-      <div class="cm-av adm">👨‍💻</div>
-      <div>
-        <div class="msg-meta">Jony (Admin)</div>
-        <div class="msg-bubble">${esc(text)}</div>
-        <div class="msg-time" style="color:var(--acc);opacity:.6">Yuborilmoqda...</div>
-      </div>
-    </div>`);
-    el.scrollTop=el.scrollHeight;
-  }
   inp.value='';
   const {error}=await sb.from('messages').insert({conversation_id:admOpenConvId,text,sender:'admin'});
-  if(error){toast('Xato: '+error.message,'err');inp.value=text;document.getElementById(tempId)?.remove();return;}
-  document.getElementById(tempId)?.remove();
+  if(error){toast('Xato: '+error.message,'err');inp.value=text;return;}
   await sb.from('conversations').update({last_message:'Jony: '+text,updated_at:new Date().toISOString()}).eq('id',admOpenConvId);
-  await loadAdmConvMsgs(admOpenConvId);
   await loadConversations();
 }
-let admTypingTimer=null;
-function broadcastAdmTyping(){
-  if(!admOpenConvId)return;
-  if(admTypingTimer)clearTimeout(admTypingTimer);
-  admTypingTimer=setTimeout(()=>{
-    try{
-      sb.channel('adm-live-'+admOpenConvId).send({type:'broadcast',event:'typing',payload:{sender:'admin'}});
-    }catch(e){}
-  },400);
+sb.channel('new-convs').on('postgres_changes',{event:'INSERT',schema:'public',table:'conversations'},()=>loadConversations()).subscribe();
+
+/* ═══ AUTH ═══ */
+let currentUser=null;
+
+// Auth holati o'zgarganda
+sb.auth.onAuthStateChange(async(event,session)=>{
+  currentUser=session?.user||null;
+  updateAuthUI();
+});
+
+function updateAuthUI(){
+  const area=document.getElementById('auth-nav-area');
+  if(!area)return;
+  if(currentUser){
+    const username=currentUser.user_metadata?.username||currentUser.email?.split('@')[0]||'User';
+    area.innerHTML=`<div class="auth-user-pill" onclick="toggleUserDropdown()">
+      <div class="auth-user-av">👤</div>
+      <span>${esc(username)}</span>
+    </div>`;
+    document.getElementById('ud-username').textContent=username+' · '+currentUser.email;
+  }else{
+    area.innerHTML=`<button class="auth-nav-btn" onclick="openAuthModal()">Kirish / Ro'yxat</button>`;
+  }
 }
-function updateAdminChatBadge(){
-  const total=Object.values(unreadMap).reduce((a,b)=>a+b,0);
-  const badge=document.getElementById('adm-chat-badge');
-  if(!badge)return;
-  if(total>0){badge.textContent=total>9?'9+':total;badge.style.display='inline-flex';}
-  else{badge.style.display='none';}
+
+function openAuthModal(){
+  document.getElementById('auth-modal').classList.add('open');
+  document.getElementById('auth-err').style.display='none';
+  document.getElementById('auth-ok').style.display='none';
+  setTimeout(()=>document.getElementById('si-email').focus(),100);
 }
-// Yangi conversation kelsa
-sb.channel('new-convs')
-  .on('postgres_changes',{event:'INSERT',schema:'public',table:'conversations'},(p)=>{
-    loadConversations();
-    if(isAdmin){
-      const name=p.new?.visitor_name||'Kimdir';
-      const chatOpen=document.getElementById('panel-chat')?.classList.contains('active');
-      if(!chatOpen){
-        unreadMap[p.new.id]=(unreadMap[p.new.id]||0)+1;
-        updateAdminChatBadge();
-      }
-      showNotif('Yangi mehmon!',name+' chat boshladi','👤');
-      playNotifSound();
-    }
-  })
-  .subscribe();
-// Yangi xabar kelsa (admin uchun)
-sb.channel('all-msgs-admin')
-  .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},(p)=>{
-    if(!isAdmin)return;
-    const msg=p.new;
-    if(msg.sender==='visitor'){
-      const conv=convList.find(c=>c.id===msg.conversation_id);
-      const name=conv?.visitor_name||'Mehmon';
-      if(msg.conversation_id!==admOpenConvId){
-        unreadMap[msg.conversation_id]=(unreadMap[msg.conversation_id]||0)+1;
-        updateAdminChatBadge();
-        renderConvList();
-        const chatOpen=document.getElementById('panel-chat')?.classList.contains('active');
-        if(!chatOpen){
-          showNotif(name+' yozdi!',msg.text,'💬');
-          playNotifSound();
-        }
-      }
-    }
-  })
-  .subscribe();
+function closeAuthModal(){
+  document.getElementById('auth-modal').classList.remove('open');
+}
+function switchAuthTab(tab){
+  document.getElementById('auth-signin-form').style.display=tab==='signin'?'block':'none';
+  document.getElementById('auth-signup-form').style.display=tab==='signup'?'block':'none';
+  document.getElementById('tab-signin').classList.toggle('active',tab==='signin');
+  document.getElementById('tab-signup').classList.toggle('active',tab==='signup');
+  document.getElementById('auth-err').style.display='none';
+  document.getElementById('auth-ok').style.display='none';
+}
+function showAuthErr(msg){
+  const e=document.getElementById('auth-err');
+  e.textContent='❌ '+msg;e.style.display='block';
+  document.getElementById('auth-ok').style.display='none';
+}
+function showAuthOk(msg){
+  const e=document.getElementById('auth-ok');
+  e.textContent='✅ '+msg;e.style.display='block';
+  document.getElementById('auth-err').style.display='none';
+}
+
+async function doSignIn(){
+  const email=document.getElementById('si-email').value.trim();
+  const pass=document.getElementById('si-pass').value;
+  if(!email||!pass){showAuthErr('Email va parol kiriting!');return;}
+  const btn=document.querySelector('#auth-signin-form .auth-btn');
+  btn.textContent='Kirilmoqda...';btn.disabled=true;
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
+  btn.textContent='Kirish →';btn.disabled=false;
+  if(error){showAuthErr(error.message);return;}
+  showAuthOk('Xush kelibsiz! 👋');
+  setTimeout(closeAuthModal,1000);
+}
+
+async function doSignUp(){
+  const username=document.getElementById('su-username').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pass=document.getElementById('su-pass').value;
+  if(!username){showAuthErr('Username kiriting!');return;}
+  if(!email){showAuthErr('Email kiriting!');return;}
+  if(pass.length<6){showAuthErr('Parol kamida 6 belgi!');return;}
+  // Username tekshirish
+  const {data:existing}=await sb.from('users').select('id').eq('username',username).single();
+  if(existing){showAuthErr('Bu username band!');return;}
+  const btn=document.querySelector('#auth-signup-form .auth-btn');
+  btn.textContent="Ro'yxatdan o'tilmoqda...";btn.disabled=true;
+  const {data,error}=await sb.auth.signUp({
+    email,password:pass,
+    options:{data:{username}}
+  });
+  btn.textContent="Ro'yxatdan o'tish →";btn.disabled=false;
+  if(error){showAuthErr(error.message);return;}
+  // users jadvaliga qo'shamiz
+  if(data.user){
+    await sb.from('users').insert({
+      id:data.user.id,
+      email,
+      username
+    });
+  }
+  showAuthOk("Muvaffaqiyatli ro'yxatdan o'tdingiz! 🎉");
+  setTimeout(closeAuthModal,1200);
+}
+
+async function doSignOut(){
+  await sb.auth.signOut();
+  closeUserDropdown();
+  toast("Chiqildi!");
+}
+
+function toggleUserDropdown(){
+  document.getElementById('user-dropdown').classList.toggle('open');
+}
+function closeUserDropdown(){
+  document.getElementById('user-dropdown').classList.remove('open');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#user-dropdown')&&!e.target.closest('.auth-user-pill'))
+    document.getElementById('user-dropdown')?.classList.remove('open');
+});
+// ESC bilan modalni yopish
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeAuthModal();
+});
 
 /* INIT */
 startClock();
